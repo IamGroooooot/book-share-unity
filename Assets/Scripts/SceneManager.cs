@@ -61,5 +61,9 @@ public class SceneManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(2);
     }
 
-    
+    // 로그인 화면으로 가기
+    public void LoadScene_Login()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
 }
