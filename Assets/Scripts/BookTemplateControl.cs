@@ -16,6 +16,7 @@ public class BookTemplateControl : MonoBehaviour
         SetAuthor("저자: " + author);
         SetPublisher("출판사: " + publisher);
         SetLenderer("대여한 곳: " + lenderer);
+        SetReturnButton(true);
     }
 
     // 북 템플릿 데이터 초기화할 때 이거 쓰시면 됩니당
@@ -39,7 +40,14 @@ public class BookTemplateControl : MonoBehaviour
         SetLendButton(true);
     }
 
-    public void SetLendButton(bool isActive)
+    // 책 반납 버튼 활성화
+    private void SetReturnButton(bool isActive)
+    {
+        transform.GetChild(5).gameObject.SetActive(isActive);
+    }
+
+    // 책 대여 버튼 활성화
+    private void SetLendButton(bool isActive)
     {
         transform.GetChild(4).gameObject.SetActive(isActive);
     }
