@@ -7,11 +7,17 @@ public class BookTemplateControl : MonoBehaviour
     // variables
     private static float bookTemplateHeight = 250f;
     static float offset = 15f;
+    GameObject lendButton = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        lendButton = transform.Find("LendRequestBtn").gameObject;
+        // List All Books 씬이 아니면 대여 버튼을 숨김
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "3_ListAllBooks")
+        {
+            lendButton.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -21,12 +27,39 @@ public class BookTemplateControl : MonoBehaviour
     }
 
     // 북 템플릿 데이터 초기화할 때 이거 쓰시면 됩니당
-    public void Initialize_BookTemplateData(string title, string author, string publisher, string lenderer)
+    // LendLog 씬용
+    public void Initialize_BookTemplateData_LendLog(string title, string author, string publisher, string lenderer)
     {
-        SetTitle(title);
-        SetAuthor(author);
-        SetPublisher(publisher);
-        SetLenderer(lenderer);
+        SetTitle("책 제목: " + title);
+        SetAuthor("저자: " + author);
+        SetPublisher("출판사: " + publisher);
+        SetLenderer("대여한 곳: " + lenderer);
+    }
+
+    // 북 템플릿 데이터 초기화할 때 이거 쓰시면 됩니당
+    // MyLib 씬용
+    public void Initialize_BookTemplateData_MyLib(string title, string author, string publisher, string borrower)
+    {
+        SetTitle("책 제목: " + title);
+        SetAuthor("저자: " + author);
+        SetPublisher("출판사: " + publisher);
+        SetLenderer("빌려간 사람: " + borrower);
+    }
+
+    // 북 템플릿 데이터 초기화할 때 이거 쓰시면 됩니당
+    // ListAll 씬용
+    public void Initialize_BookTemplateData_ListAll(string title, string author, string publisher, string owner)
+    {
+        SetTitle("책 제목: " + title);
+        SetAuthor("저자: " + author);
+        SetPublisher("출판사: " + publisher);
+        SetLenderer("책 주인: "+ owner);
+        SetLendButton(true);
+    }
+
+    public void SetLendButton(bool isActive)
+    {
+        lendButton.SetActive(isActive);
     }
 
     // 자동 배치 :: 가장 밑에 있는 북 찾아서 그 아래에 바로 배치
@@ -52,22 +85,22 @@ public class BookTemplateControl : MonoBehaviour
 
     private void SetTitle(string title)
     {
-        transform.Find("Title").GetComponent<UnityEngine.UI.Text>().text = "책 제목: " + title;
+        transform.Find("Title").GetComponent<UnityEngine.UI.Text>().text = title;
     }
 
     private void SetAuthor(string author)
     {
-        transform.Find("Author").GetComponent<UnityEngine.UI.Text>().text = "저자: " + author;
+        transform.Find("Author").GetComponent<UnityEngine.UI.Text>().text = author;
     }
 
     private void SetPublisher(string publisher)
     {
-        transform.Find("Publisher").GetComponent<UnityEngine.UI.Text>().text = "출판사: " + publisher;
+        transform.Find("Publisher").GetComponent<UnityEngine.UI.Text>().text = publisher;
     }
 
     private void SetLenderer(string lenderer)
     {
-        transform.Find("Lenderer").GetComponent<UnityEngine.UI.Text>().text = "대여한 곳: " + lenderer;
+        transform.Find("Lenderer").GetComponent<UnityEngine.UI.Text>().text = lenderer;
     }
 
     private float FindLowestBookTemplateLocalPosition()

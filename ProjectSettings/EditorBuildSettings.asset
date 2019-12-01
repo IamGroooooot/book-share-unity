@@ -4,5 +4,32 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Login.unity
+    guid: 78ec39952b66890409bd5b02a3c47530
+  - enabled: 1
+    path: Assets/Scenes/Signup.unity
+    guid: 26183aa58788dad4da5dfe0c8a14961e
+  - enabled: 1
+    path: Assets/Scenes/Main.unity
+    guid: 5d089becc09f0e449b23f0200be9a869
+  - enabled: 1
+    path: Assets/Scenes/MiddleScenes/1_LendLog.unity
+    guid: 96ec63c8550989f468bd126f7948bf7b
+  - enabled: 1
+    path: Assets/Scenes/MiddleScenes/2_MyLib.unity
+    guid: debaf22f9737d9b42bd60d03dacb5db0
+  - enabled: 1
+    path: Assets/Scenes/MiddleScenes/3_ListAllBooks.unity
+    guid: 48762a1a06f38564ba7012b02d9f512b
+  - enabled: 1
+    path: Assets/Scenes/FooterScenes/1_SetLocation.unity
+    guid: db24350a9b487894ea1b9869687fd6bf
+  - enabled: 1
+    path: Assets/Scenes/FooterScenes/2_ServiceCenter.unity
+    guid: d04725d9726c1dd4f8fb34c4b504a007
+  - enabled: 1
+    path: Assets/Scenes/FooterScenes/3_Setting.unity
+    guid: 224e3f7cbc73fd146a0eda4ef29bf596
   m_configObjects: {}
