@@ -6,19 +6,7 @@ public class BookTemplateControl : MonoBehaviour
 {
     // variables
     private static float bookTemplateHeight = 250f;
-    static float offset = 15f;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    private static float offset = 15f;
 
     // 북 템플릿 데이터 초기화할 때 이거 쓰시면 됩니당
     // LendLog 씬용
