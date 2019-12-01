@@ -34,4 +34,11 @@ public class AddNewBook : MonoBehaviour
         // 창 닫음
         addNewBookPanel.SetActive(false);
     }
+
+    // 닫기 버튼 눌렀을 때
+    public void OnCloseButtonClicked()
+    {
+        // 창 닫음
+        addNewBookPanel.SetActive(false);
+    }
 }
