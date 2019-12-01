@@ -7,17 +7,11 @@ public class BookTemplateControl : MonoBehaviour
     // variables
     private static float bookTemplateHeight = 250f;
     static float offset = 15f;
-    GameObject lendButton = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        lendButton = transform.Find("LendRequestBtn").gameObject;
-        // List All Books 씬이 아니면 대여 버튼을 숨김
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != "3_ListAllBooks")
-        {
-            lendButton.SetActive(false);
-        }
+        
     }
 
     // Update is called once per frame
@@ -59,7 +53,7 @@ public class BookTemplateControl : MonoBehaviour
 
     public void SetLendButton(bool isActive)
     {
-        lendButton.SetActive(isActive);
+        transform.GetChild(4).gameObject.SetActive(isActive);
     }
 
     // 자동 배치 :: 가장 밑에 있는 북 찾아서 그 아래에 바로 배치
@@ -75,7 +69,13 @@ public class BookTemplateControl : MonoBehaviour
     // Container Size를 Book Template만큼 늘려준다.
     public void ExtendContainerSize()
     {
-        GameObject.Find("Content").GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, GameObject.Find("Content").GetComponent<RectTransform>().rect.height + bookTemplateHeight);
+        int spawnedBookLength = GameObject.FindGameObjectsWithTag("BookTemplate").Length;
+        // Container가 북을 다 담을 만큼 크기 않는지 확인
+        float bookCoveredSize = (bookTemplateHeight + offset)*spawnedBookLength;
+        if (GameObject.Find("Content").GetComponent<RectTransform>().rect.height < bookCoveredSize)
+        {
+            GameObject.Find("Content").GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, GameObject.Find("Content").GetComponent<RectTransform>().rect.height + bookTemplateHeight);
+        }
     }
 
     public void SetRectLocalPosition(Vector2 pos)
@@ -114,14 +114,5 @@ public class BookTemplateControl : MonoBehaviour
         }
         return min;
     }
-
-    private void OnBecameInvisible()
-    {
-        //this.gameObject.SetActive(false);
-    }
-
-    private void OnBecameVisible()
-    {
-        //this.gameObject.SetActive(true);
-    }
+    
 }

@@ -29,7 +29,18 @@ public class SceneManager : MonoBehaviour
     // 지역 인증하기 클릭
     public void OnClick_AuthLocation()
     {
+        if (UnityEngine.Android.Permission.HasUserAuthorizedPermission(UnityEngine.Android.Permission.CoarseLocation))
+        {
+            Debug.Log("이미 인증했습니다.");
+            // 패널 띄우기
+        }
+        else
+        {
+            UnityEngine.Android.Permission.RequestUserPermission(UnityEngine.Android.Permission.CoarseLocation);
+            Debug.Log("인증창이 뜸.");
 
+            // 권한 창 뜸
+        }
     }
 
     // 고객센터 클릭
@@ -44,4 +55,11 @@ public class SceneManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(8);
     }
 
+    // 메인 화면으로 가기
+    public void LoadScene_Main()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(2);
+    }
+
+    
 }
