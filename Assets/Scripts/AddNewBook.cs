@@ -11,6 +11,11 @@ public class AddNewBook : MonoBehaviour
     void Start()
     {
         addNewBookPanel = GameObject.Find("AddNewBookPanel");
+
+        // 현재 유저명을 불러와서 초기화해주세요
+        // 제웅형
+        SetUserName("유저명을 초기화해주세요");
+
         addNewBookPanel.SetActive(false);
     }
 
@@ -23,13 +28,15 @@ public class AddNewBook : MonoBehaviour
     // 새책 등록하기 버튼 눌렀을 때
     public void OnConfirmButtonClicked()
     {
-        // get data //User가 입력한 정보를 가져옴
+        // get data 
+        // 사용자명 가져옴
+        string userName = GetUserName();
+        //User가 입력한 정보를 가져옴
         string ISBN = GetISBN();
         string status = GetBookStatus();
 
         Debug.Log("새책 등록하기 시도");
-        Debug.Log(">> ISBN: "+ ISBN);
-        Debug.Log(">> 책 상태: "+ status);
+        Debug.Log(" >> 등록할 책 정보(책주인: "+ userName + ", ISBN:" + ISBN + ", 책 상태: " + status + ")");
 
         // 새책 등록하기 요청 보내기
         // 제웅형
@@ -66,6 +73,25 @@ public class AddNewBook : MonoBehaviour
     {
         string isbn = GameObject.Find("ISBN_InputField").GetComponent<UnityEngine.UI.InputField>().text;
         return isbn;
+    }
+
+    private void SetUserName(string name)
+    {
+        GameObject.Find("lender_name").GetComponent<UnityEngine.UI.Text>().text = "사용자 명: " + name;
+    }
+
+    // 유저명을 가져온다
+    private string GetUserName()
+    {
+        string nameText = GameObject.Find("lender_name").GetComponent<UnityEngine.UI.Text>().text;
+        if (nameText.Length<=7)
+        {
+            Debug.Log("오류, 사용자 명 불러올 수 없음");
+            Debug.Log("SetUserName했는지 확인해주세용");
+        }
+
+        // "사용자 명: " 잘라서 반환
+        return nameText.Substring(7);
     }
 
     // user가 입력한 책의 상태를 가져온다
