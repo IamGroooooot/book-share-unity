@@ -10,13 +10,8 @@ public class BookTemplateControl : MonoBehaviour
     // 스크롤 뷰의 내부 아이템들 관의 간격
     private static float offset = 15f;
     
-    public bool test=false;
     private void Update() {
-        if(test)
-        {
-            DeleteBook();
-            test = false;
-        }
+        
     }
 
 

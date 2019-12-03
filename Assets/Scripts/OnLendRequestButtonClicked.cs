@@ -11,9 +11,15 @@ public class OnLendRequestButtonClicked : MonoBehaviour
     // 대여하기 버튼을 눌렀을 때
     private void OnLendBookButtonClicked()
     {
+        // 이 책의 정보를 가져온다
+
+
         // 책 대여하기 시도
         Debug.Log("책 대여 시도");
 
+        // 이 책 대여하기 요청
+
+        // 제웅형 
 
         // 대여하기 성공하면 대여완료 텍스트 출력
         if(didLendRequestSucceed)
@@ -50,4 +56,6 @@ public class OnLendRequestButtonClicked : MonoBehaviour
             textComponent.color = Color.red;
         }
     }
+
+    
 }
