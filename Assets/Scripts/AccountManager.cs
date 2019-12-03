@@ -10,25 +10,19 @@ public class AccountManager : MonoBehaviour
     // 회원가입 성공 여부
     public bool isRegisterSucceed = true; 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     // 아이디 중복 확인 버튼 눌렀을 때
     public void OnCheckIDButtonClicked()
     {
+
+        // Get Input Data
+        string id = GetID();
+
         Debug.Log("아이디 중복 확인 시도");
+        Debug.Log(" >> 아이디: " + id);
 
         // 중복 확인 요청 보내기
-
+        // 제웅형
 
         // 성공하면 성공 텍스트
         if(isValidID){
@@ -50,24 +44,47 @@ public class AccountManager : MonoBehaviour
     // 계정 생성 버튼 눌렀을 때
     public void OnNewAccoutConfirmButtonClicked()
     {
+        // Get Input Data
+        string id = GetID();
+        string password = GetPassword();
+
         Debug.Log("새로운 계정 생성 시도");
+        Debug.Log(" >> 아이디: " + id);
+        Debug.Log(" >> 비번: " + password);
 
-
+        // 위에 id password으로 회원가입 시도
+        // 제웅형
 
         if(isRegisterSucceed)
         {
             Debug.Log(" - 계정 생성 성공");
 
-            // 성공하면 로그인 화면으로 이동
+            // 회원가입 성공하면 로그인 화면으로 이동
             UnityEngine.SceneManagement.SceneManager.LoadScene(0);
         }
         else
         {
-            // 실패시?
+            // 회원가입 실패 시
             Debug.Log(" - 계정 생성 실패");
+            // UI 띄울까... 
 
         }
-        
-
     }
+
+    // User가 입력한 ID를 가져온다
+    private string GetID()
+    {
+        string id = GameObject.Find("ID_InputField").GetComponent<UnityEngine.UI.InputField>().text;
+
+        return id;
+    }
+
+    // User가 입력한 Password를 가져온다
+    private string GetPassword()
+    {
+        string pw = GameObject.Find("PW_InputField").GetComponent<UnityEngine.UI.InputField>().text;
+
+        return pw;
+    }
+
 }
