@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 2_MyLib 씬에서 책 추가용
 public class AddNewBook : MonoBehaviour
 {
     GameObject addNewBookPanel;
@@ -19,7 +20,7 @@ public class AddNewBook : MonoBehaviour
         
     }
 
-    //상단의 +버튼 눌렀을 때 새 책 등록창 띄우기
+    //상단의 +버튼 눌렀을 때 새책 등록창 띄우기
     public void OnAddNewBookPanelClicked()
     {
         addNewBookPanel.SetActive(true);
@@ -40,5 +41,11 @@ public class AddNewBook : MonoBehaviour
     {
         // 창 닫음
         addNewBookPanel.SetActive(false);
+    }
+
+    // user가 입력한 책의 정보를 가져온다
+    private getNewBookData()
+    {
+        
     }
 }

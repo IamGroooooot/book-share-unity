@@ -5,9 +5,11 @@ using UnityEngine;
 public class BookTemplateControl : MonoBehaviour
 {
     // variables
+    // 책 프리팹 높이
     private static float bookTemplateHeight = 250f;
+    // 스크롤 뷰의 내부 아이템들 관의 간격
     private static float offset = 15f;
-
+    
     public bool test=false;
     private void Update() {
         if(test)
@@ -72,6 +74,7 @@ public class BookTemplateControl : MonoBehaviour
         SetRectLocalPosition(new Vector2(0,lowest-offset-bookTemplateHeight));
     }
 
+    // 이 컴포넌트가 달린 책을 스크롤 뷰로부터 삭제하고 재정렬 함
     public void DeleteBook()
     {
         GameObject swapGO = FindLowestBook();
