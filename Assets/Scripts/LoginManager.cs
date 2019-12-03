@@ -20,7 +20,7 @@ public class LoginManager : MonoBehaviour
         string password = GetUserPassword();
 
         Debug.Log("로그인 시도");
-        Debug.Log("로그인 정보(ID: "+ id + ",Password: " + password + ")");
+        Debug.Log(" >> 로그인 정보(ID: "+ id + ",Password: " + password + ")");
        
         // 로그인 시도
         // 제웅형

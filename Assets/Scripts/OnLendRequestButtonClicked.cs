@@ -22,7 +22,7 @@ public class OnLendRequestButtonClicked : MonoBehaviour
         Debug.Log(" >> 빌릴 책 정보 (제목: "+bookTitle+", 저자: "+bookAuthor+", 출판사: "+bookPublisher+", 책 주인: "+bookLenderer+")");
         
         // 이 책 대여하기 요청
-        // 제웅형 
+        // 제웅형
         // didLendRequestSucceed = 성공여부 
 
         // 대여하기 성공하면 대여완료 텍스트 출력
