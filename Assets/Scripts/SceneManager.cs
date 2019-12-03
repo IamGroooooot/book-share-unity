@@ -29,15 +29,17 @@ public class SceneManager : MonoBehaviour
     // 지역 인증하기 클릭
     public void OnClick_AuthLocation()
     {
+        Debug.Log("지역 인증하기 - 안드 권한창 띄우기");
+
         if (UnityEngine.Android.Permission.HasUserAuthorizedPermission(UnityEngine.Android.Permission.CoarseLocation))
         {
-            Debug.Log("이미 인증했습니다.");
+            Debug.Log(" >> 이미 인증했습니다.");
             // 패널 띄우기
         }
         else
         {
             UnityEngine.Android.Permission.RequestUserPermission(UnityEngine.Android.Permission.CoarseLocation);
-            Debug.Log("인증창이 뜸.");
+            Debug.Log(" >> 인증창이 뜸.");
 
             // 권한 창 뜸
         }

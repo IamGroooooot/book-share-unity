@@ -15,6 +15,7 @@ public class ReportManager : MonoBehaviour
         alertPanel.SetActive(false);
     }
 
+    // 신고하기 버튼 눌렀을 때
     public void OnReportButtonClicked()
     {
         // get data

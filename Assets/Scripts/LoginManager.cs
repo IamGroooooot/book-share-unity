@@ -20,7 +20,7 @@ public class LoginManager : MonoBehaviour
         string password = GetUserPassword();
 
         Debug.Log("로그인 시도");
-        Debug.Log(" >> 로그인 정보(ID: "+ id + ",Password: " + password + ")");
+        Debug.Log(" >> 로그인 정보(ID: "+ id + ", Password: " + password + ")");
        
         // 로그인 시도
         // 제웅형
@@ -28,12 +28,12 @@ public class LoginManager : MonoBehaviour
 
         if (isValid)
         {
-            Debug.Log("로그인 성공");
+            Debug.Log(" >> 로그인 성공");
             UnityEngine.SceneManagement.SceneManager.LoadScene(2);
         }
         else
         {
-            Debug.Log("로그인 실패");
+            Debug.Log(" >> 로그인 실패");
             //실패창 띄우기
             alertPanel.SetActive(true);
         }

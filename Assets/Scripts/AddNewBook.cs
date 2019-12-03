@@ -87,7 +87,7 @@ public class AddNewBook : MonoBehaviour
         if (nameText.Length<=7)
         {
             Debug.Log("오류, 사용자 명 불러올 수 없음");
-            Debug.Log("SetUserName했는지 확인해주세용");
+            Debug.Log(" >> SetUserName했는지 확인해주세용");
         }
 
         // "사용자 명: " 잘라서 반환

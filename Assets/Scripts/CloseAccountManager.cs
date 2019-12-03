@@ -36,7 +36,7 @@ public class CloseAccountManager : MonoBehaviour
         // 탈퇴 성공하면
         if (didClossAccountSucceed)
         {
-            Debug.Log("탈퇴 성공 - 메인창으로 돌아감");
+            Debug.Log(" >> 탈퇴 성공 - 메인창으로 돌아감");
             // 저장된 유저 데이터 모두 초기화
             // 제웅형
 
@@ -44,7 +44,7 @@ public class CloseAccountManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("탈퇴 실패");
+            Debug.Log(" >> 탈퇴 실패");
             // 탈퇴 실패하면
             CloseAccountFail();
         }
