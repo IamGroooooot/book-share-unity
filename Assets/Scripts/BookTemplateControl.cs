@@ -104,6 +104,10 @@ public class BookTemplateControl : MonoBehaviour
         float min = 1419f;
         foreach (var item in GameObject.FindGameObjectsWithTag("BookTemplate"))
         {
+            if(item == this.gameObject)
+            {
+                continue;
+            }
             if (min > item.GetComponent<RectTransform>().localPosition.y) {
                 min = item.GetComponent<RectTransform>().localPosition.y;
             }
