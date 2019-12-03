@@ -11,19 +11,12 @@ public class BookSpawnerManager : MonoBehaviour
     private void Awake()
     {
         bookParent = GameObject.Find("Content").transform;
-
     }
 
     // Start is called before the first frame update
     void Start()
     {
         bookParent = GameObject.Find("Content").transform;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     // 책을 스크롤 뷰 UI에 추가해줍니다

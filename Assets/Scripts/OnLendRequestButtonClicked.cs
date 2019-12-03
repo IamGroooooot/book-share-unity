@@ -19,7 +19,7 @@ public class OnLendRequestButtonClicked : MonoBehaviour
 
         // 책 대여하기 시도
         Debug.Log("책 대여 시도");
-        Debug.Log("책 정보 (제목: "+bookTitle+", 저자: "+bookAuthor+", 출판사: "+bookPublisher+", 책 주인: "+bookLenderer+")");
+        Debug.Log(" >> 빌릴 책 정보 (제목: "+bookTitle+", 저자: "+bookAuthor+", 출판사: "+bookPublisher+", 책 주인: "+bookLenderer+")");
         
         // 이 책 대여하기 요청
         // 제웅형 
