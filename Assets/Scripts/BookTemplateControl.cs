@@ -8,6 +8,16 @@ public class BookTemplateControl : MonoBehaviour
     private static float bookTemplateHeight = 250f;
     private static float offset = 15f;
 
+    public bool test=false;
+    private void Update() {
+        if(test)
+        {
+            DeleteBook();
+            test = false;
+        }
+    }
+
+
     // 북 템플릿 데이터 초기화할 때 이거 쓰시면 됩니당
     // LendLog 씬용
     public void Initialize_BookTemplateData_LendLog(string title, string author, string publisher, string lenderer)
@@ -60,6 +70,19 @@ public class BookTemplateControl : MonoBehaviour
 
         // 가장 아래에 offset만큼 띄우고 배치
         SetRectLocalPosition(new Vector2(0,lowest-offset-bookTemplateHeight));
+    }
+
+    public void DeleteBook()
+    {
+        GameObject swapGO = FindLowestBook();
+        if(swapGO == null){
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            swapGO.GetComponent<BookTemplateControl>().SetRectLocalPosition(this.GetComponent<RectTransform>().localPosition);
+            Destroy(this.gameObject);
+        }
     }
 
     // Container Size를 Book Template만큼 늘려준다.
@@ -115,4 +138,21 @@ public class BookTemplateControl : MonoBehaviour
         return min;
     }
     
+    private GameObject FindLowestBook()
+    {
+        GameObject lowestGameObject = null;
+        float min = 20000f;
+        foreach (var item in GameObject.FindGameObjectsWithTag("BookTemplate"))
+        {
+            if(item == this.gameObject)
+            {
+                continue;
+            }
+            if (min > item.GetComponent<RectTransform>().localPosition.y) {
+                min = item.GetComponent<RectTransform>().localPosition.y;
+                lowestGameObject = item;
+            }
+        }
+        return lowestGameObject;
+    }
 }
