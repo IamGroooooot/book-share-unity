@@ -1,6 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
+using static WWWHelper;
 
 public class LoginManager : MonoBehaviour
 {
@@ -21,13 +25,29 @@ public class LoginManager : MonoBehaviour
 
         Debug.Log("로그인 시도");
         Debug.Log(" >> 로그인 정보(ID: "+ id + ", Password: " + password + ")");
-       
-        // 로그인 시도
-        // 제웅형
-        // isValid = 로그인성공여부
 
-        if (isValid)
+        // 로그인 시도
+        // isValid = 로그인성공여부
+        StartCoroutine(OnLoginCR());
+    }
+    
+    IEnumerator OnLoginCR()
+    {
+        var formData = new WWWForm();
+        formData.AddField("user_name", GetUserID());
+        formData.AddField("password", GetUserPassword());
+
+        var www = UnityWebRequest.Post(LoginURL, formData);
+
+        yield return www.SendWebRequest();
+        var return_val = JsonUtility.FromJson<user_login_data>(www.downloadHandler.text);
+
+
+
+        if (!www.isNetworkError && !www.isHttpError && return_val.user_address != "")
         {
+            StaticVar.ADDR = return_val.user_address;
+            StaticVar.ID = return_val.user_name;
             Debug.Log(" >> 로그인 성공");
             UnityEngine.SceneManagement.SceneManager.LoadScene(2);
         }
@@ -37,7 +57,7 @@ public class LoginManager : MonoBehaviour
             //실패창 띄우기
             alertPanel.SetActive(true);
         }
-
+        
     }
 
     // 회원가입 버튼 눌렀을 때

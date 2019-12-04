@@ -1,29 +1,60 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using static WWWHelper;
 
 public class OnReturnButtonClicked : MonoBehaviour
 {
     // 반납하기 버튼을 누르면 반납 완료라는 텍스트로 바꿔준다
     public void OnReturnBookButtonClicked()
     {
+
+    /*
         // 이 책의 정보를 가져온다
         string bookTitle = GetBookTitle();
         string bookAuthor = GetBookAuthor();
         string bookPublisher = GetBookPublisher();
         string bookLenderer = GetBookBorrower();
+    */
 
-        Debug.Log("책 반납 시도");
-        Debug.Log(" >> 반납할 책 정보 (제목: " + bookTitle + ", 저자: " + bookAuthor + ", 출판사: " + bookPublisher + ", 대여한 곳: " + bookLenderer + ")");
-
-        // 책 반납 시도
-        // 제웅형
-
-        // 반납 성공으로 버튼 텍스트 변경
-        ToggleSuccessText();
+        StartCoroutine(OnReturnBookButtonClickedRoutine());
 
     }
-    
+    IEnumerator OnReturnBookButtonClickedRoutine()
+    {
+        var formData = new WWWForm();
+        formData.AddField("borrower", StaticVar.ID);
+        formData.AddField("ISBN", transform.parent.GetComponent<BookTemplateControl>().ISBN);
+
+        var www = UnityWebRequest.Post(BookReturnURL, formData);
+
+        yield return www.SendWebRequest();
+        if (!www.isNetworkError && !www.isHttpError)
+        {
+            var return_val = JsonUtility.FromJson<SuccessReturn>(www.downloadHandler.text);
+            if (return_val.success)
+            {
+                Debug.Log(" >> 반납 성공");
+                ToggleSuccessText();
+            }
+
+            else
+            {
+                Debug.Log(" >> 실패: 아이디 중복됨");
+                yield break;
+            }
+        }
+
+        else
+        {
+            Debug.Log(" >> 오류임");
+        }
+
+
+    }
+
+
     // 반납 완료라고 텍스트 설정
     private void ToggleSuccessText()
     {
