@@ -14,6 +14,7 @@ public class BookTemplateControl : MonoBehaviour
         
     }
 
+    public string ISBN;
 
     // 북 템플릿 데이터 초기화할 때 이거 쓰시면 됩니당
     // LendLog 씬용

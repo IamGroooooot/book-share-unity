@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using static WWWHelper;
+using Newtonsoft.Json;
 
 // 대여하기 버튼을 눌렀을 때
 public class OnLendRequestButtonClicked : MonoBehaviour
@@ -11,30 +14,50 @@ public class OnLendRequestButtonClicked : MonoBehaviour
     // 대여하기 버튼을 눌렀을 때
     private void OnLendBookButtonClicked()
     {
-        // 이 책의 정보를 가져온다
-        string bookTitle = GetBookTitle();
-        string bookAuthor = GetBookAuthor();
-        string bookPublisher = GetBookPublisher();
-        string bookLenderer = GetBookLenderer();
+        StartCoroutine(OnLendBookButtonClickedRoutine());
+    }
+    IEnumerator OnLendBookButtonClickedRoutine()
+    {
+        string ISBN;
+        var www = UnityWebRequest.Post(
+                GetRentBookURL(ISBN = transform.parent.GetComponent<BookTemplateControl>().ISBN),
+                ""
+            );
 
-        // 책 대여하기 시도
-        Debug.Log("책 대여 시도");
-        Debug.Log(" >> 빌릴 책 정보 (제목: "+bookTitle+", 저자: "+bookAuthor+", 출판사: "+bookPublisher+", 책 주인: "+bookLenderer+")");
-        
-        // 이 책 대여하기 요청
-        // 제웅형
-        // didLendRequestSucceed = 성공여부 
+        yield return www.SendWebRequest();
 
-        // 대여하기 성공하면 대여완료 텍스트 출력
-        if (didLendRequestSucceed)
+
+
+        if (!www.isNetworkError && !www.isHttpError)
         {
-            ToggleSuccessText();
+            var ret = Newtonsoft.Json.JsonConvert.DeserializeObject<ArchiveDetailData>(www.downloadHandler.text);
+            foreach (var book in ret.book_data_list)
+            {
+                var formData = new WWWForm();
+                formData.AddField("ISBN", ISBN);
+                formData.AddField("borrower", StaticVar.ID);
+                formData.AddField("lender", book.owner_name);
+
+                var www2 = UnityWebRequest.Post(
+                        RentBookURL,
+                        formData
+                    );
+
+                yield return www2.SendWebRequest();
+                if (!www2.isNetworkError && !www2.isHttpError)
+                {
+                    var ret2 = Newtonsoft.Json.JsonConvert.DeserializeObject<SuccessReturn>(www.downloadHandler.text);
+                    if (ret2.success)
+                    {
+                        ToggleSuccessText();
+                        yield break;
+                    }
+                }
+            }
+
+                   
         }
-        else
-        {
-            ToggleFailText();
-        }
-        
+        ToggleSuccessText();
     }
 
     // 대여 완료라는 텍스트로 바꿔준다

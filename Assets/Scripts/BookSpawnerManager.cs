@@ -20,32 +20,35 @@ public class BookSpawnerManager : MonoBehaviour
     }
 
     // 책을 스크롤 뷰 UI에 추가해줍니다
-    public void AddBookToScrollView_MyLib(string title, string author, string publisher, string borrower)
+    public void AddBookToScrollView_MyLib(string title, string author, string publisher, string borrower, string isbn)
     {
         GameObject go = Instantiate(prefab_BookTemplate, bookParent);
         //go.transform.SetParent(bookParent);
         go.GetComponent<BookTemplateControl>().Initialize_BookTemplateData_MyLib(title, author, publisher, borrower);
         go.GetComponent<BookTemplateControl>().ExtendContainerSize();
         go.GetComponent<BookTemplateControl>().AllignPosition();
+        go.GetComponent<BookTemplateControl>().ISBN = isbn;
     }
 
     // 책을 스크롤 뷰 UI에 추가해줍니다
-    public void AddBookToScrollView_LendLog(string title, string author, string publisher, string lenderer)
+    public void AddBookToScrollView_LendLog(string title, string author, string publisher, string lenderer, string isbn)
     {
         GameObject go = Instantiate(prefab_BookTemplate, bookParent);
         //go.transform.SetParent(bookParent);
         go.GetComponent<BookTemplateControl>().Initialize_BookTemplateData_LendLog(title, author, publisher, lenderer);
         go.GetComponent<BookTemplateControl>().ExtendContainerSize();
         go.GetComponent<BookTemplateControl>().AllignPosition();
+        go.GetComponent<BookTemplateControl>().ISBN = isbn;
     }
 
     // 책을 스크롤 뷰 UI에 추가해줍니다
-    public void AddBookToScrollView_ListAll(string title, string author, string publisher, string lenderer)
+    public void AddBookToScrollView_ListAll(string title, string author, string publisher, string lenderer, string isbn)
     {
         GameObject go = Instantiate(prefab_BookTemplate, bookParent);
         //go.transform.SetParent(bookParent);
         go.GetComponent<BookTemplateControl>().Initialize_BookTemplateData_ListAll(title, author, publisher, lenderer);
         go.GetComponent<BookTemplateControl>().ExtendContainerSize();
         go.GetComponent<BookTemplateControl>().AllignPosition();
+        go.GetComponent<BookTemplateControl>().ISBN = isbn;
     }
 }

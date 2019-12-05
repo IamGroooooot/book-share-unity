@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
+using static WWWHelper;
 // 2_MyLib 씬에서 책 추가용
 public class AddNewBook : MonoBehaviour
 {
@@ -14,7 +16,7 @@ public class AddNewBook : MonoBehaviour
 
         // 현재 유저명을 불러와서 초기화해주세요
         // 제웅형
-        SetUserName("유저명을 초기화해주세요");
+        SetUserName(StaticVar.ID);
 
         addNewBookPanel.SetActive(false);
     }
@@ -28,6 +30,12 @@ public class AddNewBook : MonoBehaviour
     // 새책 등록하기 버튼 눌렀을 때
     public void OnConfirmButtonClicked()
     {
+        StartCoroutine(OnConfirmButtonClickedRoutine());
+    }
+    
+    public IEnumerator OnConfirmButtonClickedRoutine()
+    {
+
         // get data 
         // 사용자명 가져옴
         string userName = GetUserName();
@@ -36,29 +44,39 @@ public class AddNewBook : MonoBehaviour
         string status = GetBookStatus();
 
         Debug.Log("새책 등록하기 시도");
-        Debug.Log(" >> 등록할 책 정보(책주인: "+ userName + ", ISBN:" + ISBN + ", 책 상태: " + status + ")");
+        Debug.Log(" >> 등록할 책 정보(책주인: " + userName + ", ISBN:" + ISBN + ", 책 상태: " + status + ")");
 
-        // 새책 등록하기 요청 보내기
-        // 제웅형
+        var formData = new WWWForm();
+        formData.AddField("lender_name", StaticVar.ID);
+        formData.AddField("ISBN", ISBN);
+        formData.AddField("status", status);
 
-        // 입력한 ISBN으로 서버로부터 책 정보 가져오기
-        // 제웅형
-        /*
-        string title = 
-        string author = 
-        string publisher = 
-        string borrower =
+        var www = UnityWebRequest.Post(AddBookURL, formData);
 
-        // UI에 새책 추가
-        AddBook(title, author, publisher, borrower);
-        */
+        yield return www.SendWebRequest();
 
-        // UI에 새책 추가
-        // 대충 아무거나 추가하게 함. 위에 구현 후에 지워주세요
-        AddBook("펭수의 일기", "고주형", "중앙대", "원범쓰");
 
-        // 창 닫음
-        addNewBookPanel.SetActive(false);
+        if (!www.isNetworkError && !www.isHttpError)
+        {
+            var return_val = JsonUtility.FromJson<SuccessReturn>(www.downloadHandler.text);
+            if (return_val.success)
+            {
+                Debug.Log(" >> 성공");
+                UnityEngine.SceneManagement.SceneManager.LoadScene(
+                    UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex
+                    );
+            }
+            else
+            {
+                Debug.Log(" >> 실패: 이것도 오류");
+
+            }
+        }
+
+        else
+        {
+            Debug.Log(" >> 오류남!");
+        }
     }
 
     // 닫기 버튼 눌렀을 때
@@ -102,8 +120,8 @@ public class AddNewBook : MonoBehaviour
     }
 
     // UI에 새책 추가
-    private void AddBook(string title, string author, string publisher, string borrower)
+    private void AddBook(string title, string author, string publisher, string borrower, string ISBN)
     {
-        GameObject.Find("BookSpawnManager").GetComponent<BookSpawnerManager>().AddBookToScrollView_MyLib(title, author, publisher, borrower);
+        GameObject.Find("BookSpawnManager").GetComponent<BookSpawnerManager>().AddBookToScrollView_MyLib(title, author, publisher, borrower, ISBN);
     }
 }
