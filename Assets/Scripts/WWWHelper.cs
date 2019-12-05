@@ -100,4 +100,21 @@ public static class WWWHelper
     public static string GetRentBookURL(string ISBN) {
         return URL + $"/books/archive/{ISBN}/details/";
     }
+    public static string RentBookURL { get { return URL + "/books/borrow/"; } }
+
+    [Serializable]
+    public class ArchiveDetailData
+    {
+        public string book_title;
+        public List<ArchiveDetail> book_data_list;
+    }
+
+    [Serializable]
+    public class ArchiveDetail
+    {
+        public string owner_name;
+        public string owner_address;
+        public string book_status;
+    }
+
 }
