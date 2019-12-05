@@ -57,7 +57,7 @@ public class OnLendRequestButtonClicked : MonoBehaviour
 
                    
         }
-        ToggleFailText();
+        ToggleSuccessText();
     }
 
     // 대여 완료라는 텍스트로 바꿔준다
